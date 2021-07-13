@@ -113,5 +113,9 @@ class SessionAuthenticationHandler implements AuthenticationHandler
     {
         $request = $request ?: Controller::curr()->getRequest();
         $request->getSession()->restart($request);
+
+        if (Member::config()->get('login_marker_cookie')) {
+            Cookie::force_expiry(Member::config()->get('login_marker_cookie'));
+        }
     }
 }
